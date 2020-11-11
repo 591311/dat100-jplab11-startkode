@@ -5,46 +5,79 @@ import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
-
+	private Innlegg[] tabell;
+	private int nesteledige = 0;
+	
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		tabell = new Innlegg[20];
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		tabell = new Innlegg[lengde];
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return nesteledige;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return tabell;
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		for (int i = 0; i < nesteledige; i++) {
+			if (innlegg.erLik(tabell[i])) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		if (finnInnlegg(innlegg) != -1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
-
+		if (nesteledige < tabell.length) {
+				return true;
+			} else {
+				return false;
+			}
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
-
-		throw new UnsupportedOperationException(TODO.method());
+		boolean idEksisterer = false;
+		int innleggId = innlegg.getId();
+		
+			for (Innlegg i : tabell) {
+				if (i != null) {
+					if (i.getId() == innleggId) {
+						idEksisterer = true;
+					}
+				}
+			}
+			if (!idEksisterer) {
+				tabell[nesteledige] = innlegg;
+				nesteledige++;
+				return true;
+			} else {
+				return false;
+			}
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		String str = nesteledige + "\n";
+		for (int i = 0; i < nesteledige; i++) {
+			if (tabell[i] != null) {
+			str += tabell[i].toString();
+			}
+		}
+		return str;
 	}
 
 	// valgfrie oppgaver nedenfor
